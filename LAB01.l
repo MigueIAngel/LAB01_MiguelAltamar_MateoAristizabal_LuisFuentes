@@ -10,7 +10,6 @@ map<string, string> mapa;
 %}
 %option case-insensitive
 %option noyywrap
-
 ws              [ \t\n]  
 digit           [0-9]  
 letter          [a-zA-ZáéíóúÁÉÍÓÚ]  
@@ -30,7 +29,6 @@ simbolos          [^’‘`'"\t\n]
 slash             [_]
 identifier       {letter}{ALFANUM}*
 %option noyywrap
-
 %x STRING
 %x STRING2
 %x STRING3

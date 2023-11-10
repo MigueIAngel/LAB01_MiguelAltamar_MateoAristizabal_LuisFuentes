@@ -27,48 +27,47 @@ int numLinea = 1;
 %token IDENTIFIER CADENA
 %%
 
-start: comandos start_
-start_: | comandos start
-comandos: creacion_tabla { numLinea++; }
-        | eliminacion_tabla { numLinea++; }
-        | insercion_dato { numLinea++; }
-        | eliminacion_dato { numLinea++; }
-        | actualizacion { numLinea++; }
-        | seleccion { numLinea++; }
+start: stmts start_
+start_: | stmts start
+stmts: create_table { numLinea++; }
+        | select { numLinea++; }
+        | update { numLinea++; }
+        | delete { numLinea++; }
+        | drop_table { numLinea++; }
+        | insert { numLinea++; }
         | error PUNTCOMA { line_errors.push_back(numLinea++); }
 
-creacion_tabla: CREATE IDENTIFIER PARABRE campos PARCIERR PUNTCOMA;
+create_table: CREATE IDENTIFIER PARABRE campos PARCIERR PUNTCOMA;
 campos: campo campos_
 campos_: | COMA campos
 campo: IDENTIFIER tipoDato dato | IDENTIFIER tipoDato;
 tipoDato: INTEGER | DECIMAL | VARCHAR
 dato: PARABRE NUMENTERO PARCIERR;
-
-eliminacion_tabla: DROP IDENTIFIER PUNTCOMA;
-
-insercion_dato: INSERT INTO IDENTIFIER VALUES PARABRE valores PARCIERR PUNTCOMA;
-valores: valor valores_
-valores_: | COMA valores
-valor: NUMENTERO | NUMDECIMAL | CADENA
-
-eliminacion_dato: DELETE FROM IDENTIFIER WHERE condiciones PUNTCOMA;
-condiciones: condicion condiciones_
-condiciones_: | AND condiciones | OR condiciones 
-condicion: IDENTIFIER operador_ar valor | valor operador_ar IDENTIFIER;
-operador_ar: ASIGN | DIFERENTQ | MAYORIGUALQ | MENORIGUALQ | MAYORQ | MENORQ | IGUALQ
-
-actualizacion: UPDATE IDENTIFIER SET IDENTIFIER IGUALQ option WHERE condiciones PUNTCOMA;
-option: IDENTIFIER | condiciones;
-
-seleccion: SELECT busqueda FROM IDENTIFIER condicionado agrupacion ordenacion PUNTCOMA;
-busqueda: ASTERISCO | combinado;
-combinado: IDENTIFIER | funcion | IDENTIFIER COMA combinado | funcion COMA combinado;
+select: SELECT search FROM IDENTIFIER condition group order PUNTCOMA;
+search: ASTERISCO | fields;
+fields: IDENTIFIER | funcion | IDENTIFIER COMA fields | funcion COMA fields;
 funcion: tipoFuncion PARABRE IDENTIFIER PARCIERR;
 tipoFuncion: MAX | MIN | AVG | COUNT;
-condicionado: | WHERE condiciones;
-agrupacion: | GROUP_BY IDENTIFIER;
-ordenacion: | ORDER_BY IDENTIFIERes orden;
+condition: | WHERE conditions;
+group: | GROUP_BY IDENTIFIER;
+order: | ORDER_BY IDENTIFIERes orden;
 orden: ASC | DESC;
+drop_table: DROP IDENTIFIER PUNTCOMA;
+update: UPDATE IDENTIFIER SET IDENTIFIER IGUALQ option WHERE conditions PUNTCOMA;
+option: IDENTIFIER | conditions;
+insert: INSERT INTO IDENTIFIER VALUES PARABRE value PARCIERR PUNTCOMA;
+value: valor value_
+value_: | COMA value
+valor: NUMENTERO | NUMDECIMAL | CADENA
+delete: DELETE FROM IDENTIFIER WHERE conditions PUNTCOMA;
+conditions: condicion conditions_
+conditions_: | AND conditions | OR conditions 
+condicion: IDENTIFIER op valor | valor op IDENTIFIER;
+op: ASIGN | DIFERENTQ | MAYORIGUALQ | MENORIGUALQ | MAYORQ | MENORQ | IGUALQ
+
+
+
+
 IDENTIFIERes: IDENTIFIER | IDENTIFIER COMA IDENTIFIERes;
 
 %%
@@ -91,7 +90,7 @@ int main(int argc, char* argv[]) {
     if (line_errors.size() > 0) {
         cout<<"\n\nIncorrecto\n\n";
         for (int linea : line_errors) {
-            cout<<"Error en la linea "<<linea<<endl;
+            cout<<"Error en la línea "<<linea<<endl;
         }
         line_errors.clear();
     } else {

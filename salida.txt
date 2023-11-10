@@ -1,0 +1,12 @@
+CREATE TABLE  id1=Empleadoparabre=(  id2=nombreVARCHAR parabre=( entero=20 parcierr=) coma=,  id3=cedulaINTEGER coma=,  id4=salarioDECIMAL parabre=( entero=2 parcierr=) parcierr=) puntcoma=; 
+INSERT INTO  id1=EmpleadoVALUES parabre=( cadena='Juan' coma=, entero=1045268154 coma=, ERROR= 12aab parcierr=) puntcoma=; 
+SELECT FROM  id5=apuntcoma=; 
+SELECT  id2=nombrecoma=, MAX parabre=(  id4=salarioparcierr=) FROM  id1=Empleadopuntcoma=; 
+UPDATE SET  id2=nombreasign= = cadena='Carlos' FROM  id1=EmpleadoWHERE  id3=cedulaasign= = decimal=12.5 SELECT asterisco=* FROM  id1=EmpleadoWHERE  id4=salariomenorq=< entero=2000000 ORDER BY  id2=nombreASC ERROR=. puntcoma=; 
+
+
+Incorrecto
+
+Error en la línea 2
+Error en la línea 3
+Error en la línea 5

@@ -83,6 +83,7 @@ identifier       {letter}{ALFANUM}*
 '\''.*'\''              {  return CADENA; }
 {s_quote}({ws}|{letter}|{simbolosS}|{digit})*{s_quote} {  return CADENA; }
 {c_quote}({ws}|{letter}|{simbolosC}|{digit})*{c_quote} {  return CADENA; }
+{d_quote}({ws}|{letter}|{simbolosD}|{digit})*{d_quote} {  return CADENA; }
 \‘[^\‘\\]*(\\.[^\‘\\]*)*\‘ {  return CADENA; }
 \’[^\’\\]*(\\.[^\’\\]*)*\’ {  return CADENA; }
 \`[^\`\\]*(\\.[^\`\\]*)*\` {  return CADENA; }
